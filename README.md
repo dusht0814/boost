@@ -9,9 +9,10 @@ This repository contains 4 files :-
 4. analysis.ods :- performance analysis of test.cpp and bruteforce.cpp .
 
 How to use :
+
 1.Import segtree.h using #include "segtree.h"
 
-2.Depending upon your usage call :
+2.Depending upon your usage call (Use 0 based indexing):
 
   a)buildmin(0,0,array_size-1,your_array) this function builds your segmentree and sets each parent node as minimum of their child.
   
