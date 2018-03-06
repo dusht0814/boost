@@ -14,9 +14,9 @@ This repository contains 8 files :-
 
 How to use :
 
-1.Import segtree.h using #include "segtree.h"
+1.Import segtree.h using #include "segtree.h".
 
-2. User have to input :
+2.User have to input :
   
   a) setval(1) and comp1 for maximum segment tree.
   
