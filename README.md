@@ -16,24 +16,25 @@ How to use :
 
 1.Import segtree.h using #include "segtree.h"
 
-2.Depending upon your usage call (Use 0 based indexing):
+2. User have to input :
+  
+  a) setval(1) and comp1 for maximum segment tree.
+  
+  b) setval(2) and comp2 for minimum segment tree.
 
-  a)buildmin(0,0,array_size-1,your_array) this function builds your segmentree and sets each parent node as minimum of their child.
+  c) setval(3) and comp3 for gcd segment tree.
+
+  d) setval(4) and comp4 for summation segment tree.
   
-  b)buildmax(0,0,array_size-1,your_array) this function builds your segmentree and sets each parent node as maximum of their child.
   
-  c)buildsum(0,0,array_size-1,your_array) this function builds your segmentree and sets each parent node as sum of their child.
+3.Depending upon your usage call (Use 0 based indexing):
+
+  a)build(0,0,array_size-1,your_array,compX) this function builds your segmentree and sets each parent node according to the comparator's property.
   
-  d)querymin(0,query_low,query_high,0,array_size-1) this function returns minimum element from query_low to query_high inclusive.
   
-  e)querymax(0,query_low,query_high,0,array_size-1) this function returns maximum element from query_low to query_high inclusive.
+  b)query(0,query_low,query_high,0,array_size-1,compX) this function returns answer according to the comparartor from query_low to query_high inclusive.
   
-  f)querysum(0,query_low,query_high,0,array_size-1) this function returns sum of elements from query_low to query_high inclusive.
+ 
+  c)update(0,0,array_size-1,ind,value,compX) this function changes the value of your_array at index to value in the segment tree(your_array[ind]=val)
   
-  e)updatemin(0,0,array_size-1,ind,value) this function changes the value of your_array at index to value in the minimum segment tree(your_array[ind]=val)
   
-  f)updatemax(0,0,array_size-1,ind,value) this function changes the value of your_array at index to value in the maximum segment tree(your_array[ind]=val)
-  
-  g)updatesum(0,0,array_size-1,ind,value) this function changes the value of your_array at index to value in the summation segment tree(your_array[ind]=val)
-  
-3. If the queries are Q and array elements are N then  time complexity of this program is QlogN .
