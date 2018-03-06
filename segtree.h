@@ -1,43 +1,44 @@
 /* 
 Author :- Dushyant Pratap Singh
-Date :- 03/03/2018
+Date :- 06/03/2018
 */
+
 	#include<bits/stdc++.h>
 	#define INF 1000000000 
 	using namespace std;
-	typedef long long T;	
 	vector<long long> tree(4000000,0); //default size of segment tree 4000000
 	
-	void buildmin(T pos,T start,T end,vector<T>&a)
-	{
-		if(start==end)
-		{
-			tree[pos]=a[start];
-		}
-		else
-		{
-			T mid=(start+end)/2;
-			buildmin(2*pos+1,start,mid,a);
-			buildmin(2*pos+2,mid+1,end,a);
-			tree[pos]=min(tree[2*pos+1],tree[2*pos+2]);
-		}
-	}
-	void buildmax(T pos,T start,T end,vector<T>&a)
-	{
-		if(start==end)
-		{
-			tree[pos]=a[start];
-		}
-		else
-		{
-			T mid=(start+end)/2;
-			buildmax(2*pos+1,start,mid,a);
-			buildmax(2*pos+2,mid+1,end,a);
-			tree[pos]=max(tree[2*pos+1],tree[2*pos+2]);
-		}
+        template<class T>
+        T comp1(T a,T b)
+        {return max(a,b);}
 
-	}
-	void buildsum(T pos,T start,T end,vector<T>&a)
+	template<class T>
+        T comp2(T a,T b)
+        {return min(a,b);}
+
+	template<class T>
+        T comp3(T a,T b)
+        {return __gcd(a,b);}
+
+	template<class T>
+        T comp4(T a,T b)
+        {return (a+b);}
+	
+	int def;
+	void setval(int x)
+	{
+	    if(x==1)
+		def=-INF;
+	    if(x==2)
+		def=INF;
+	    if(x==3)
+		def=0;
+	    if(x==4)
+		def=0;
+	} 
+
+	template<class T>
+	void build(T pos,T start,T end,vector<T>&a,T (*cmp)(T,T))
 	{
 		if(start==end)
 		{
@@ -46,64 +47,31 @@ Date :- 03/03/2018
 		else
 		{
 			T mid=(start+end)/2;
-			buildsum(2*pos+1,start,mid,a);
-			buildsum(2*pos+2,mid+1,end,a);
-			tree[pos]=tree[2*pos+1]+tree[2*pos+2];
+			build(2*pos+1,start,mid,a,cmp);
+			build(2*pos+2,mid+1,end,a,cmp);
+			tree[pos]=cmp(tree[2*pos+1],tree[2*pos+2]);
 		}
 	}
-	T querymin(T pos,T qlow,T qhigh,T L,T R)
+	template<class T>	
+	T query(T pos,T qlow,T qhigh,T L,T R,T (*cmp)(T,T))
 	{
 		
 		if( qlow>R || qhigh<L)
 		{
-			return INF;
+			return def;
 		}
 		if(qlow<=L && qhigh>=R)
 		{
 			return tree[pos];
 		}
 			T mid=(L+R)/2;
-			T q1=querymin(2*pos+1,qlow,qhigh,L,mid);
-			T q2=querymin(2*pos+2,qlow,qhigh,mid+1,R);
-			return min(q1,q2);
+			T q1=query(2*pos+1,qlow,qhigh,L,mid,cmp);
+			T q2=query(2*pos+2,qlow,qhigh,mid+1,R,cmp);
+			return cmp(q1,q2);
 	
-	}	
-	T querymax(T pos,T qlow,T qhigh,T L,T R)
-	{
-		
-		if( qlow>R || qhigh<L)
-		{
-			return -INF;
-		}
-		if(qlow<=L && qhigh>=R)
-		{
-			return tree[pos];
-		}
-			T mid=(L+R)/2;
-			T q1=querymax(2*pos+1,qlow,qhigh,L,mid);
-			T q2=querymax(2*pos+2,qlow,qhigh,mid+1,R);
-			return max(q1,q2);
-	
-	}	
-
-	T querysum(T pos,T qlow,T qhigh,T L,T R)
-	{
-		
-		if( qlow>R || qhigh<L)
-		{
-			return 0;
-		}
-		if(qlow<=L && qhigh>=R)
-		{
-			return tree[pos];
-		}
-			T mid=(L+R)/2;
-			T q1=querysum(2*pos+1,qlow,qhigh,L,mid);
-			T q2=querysum(2*pos+2,qlow,qhigh,mid+1,R);
-			return q1+q2;
-	
-	}	
-	void updatemin(T pos,T a,T b,T ind,T val)
+	}
+	template<class T>	
+	void update(T pos,T a,T b,T ind,T val,T (*cmp)(T,T))
 	{
 		if(a==b)
 		{
@@ -114,52 +82,9 @@ Date :- 03/03/2018
 		{
 			T mid=(a+b)/2;
 			if(a<=ind && ind<=mid)
-				updatemin(2*pos+1,a,mid,ind,val);
+				update(2*pos+1,a,mid,ind,val,cmp);
 			else
-				updatemin(2*pos+2,mid+1,b,ind,val);
-			tree[pos]=min(tree[2*pos+1],tree[2*pos+2]);
+				update(2*pos+2,mid+1,b,ind,val,cmp);
+			tree[pos]=cmp(tree[2*pos+1],tree[2*pos+2]);
 		}
 	}
-	void updatemax(T pos,T a,T b,T ind,T val)
-	{
-		if(a==b)
-		{
-			tree[pos]=val;
-			return;
-		}
-		else
-		{
-			T mid=(a+b)/2;
-			if(a<=ind && ind<=mid)
-				updatemax(2*pos+1,a,mid,ind,val);
-			else
-				updatemax(2*pos+2,mid+1,b,ind,val);
-			tree[pos]=max(tree[2*pos+1],tree[2*pos+2]);
-		}
-	}
-	void updatesum(T pos,T a,T b,T ind,T val)
-	{
-		if(a==b)
-		{
-			tree[pos]=val;
-			return;
-		}
-		else
-		{
-			T mid=(a+b)/2;
-			if(a<=ind && ind<=mid)
-				updatesum(2*pos+1,a,mid,ind,val);
-			else
-				updatesum(2*pos+2,mid+1,b,ind,val);
-			tree[pos]=tree[2*pos+1]+tree[2*pos+2];
-		}
-	}
-	
-
-
-
-
-
-
-
-	
