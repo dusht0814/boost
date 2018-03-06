@@ -1,12 +1,12 @@
 /* 
 Author :- Dushyant Pratap Singh
-Date :- 03/03/2018
+Date :- 06/03/2018
 */
 #include<bits/stdc++.h>
 #include "segtree.h"
-#define int long long
+
 using namespace std;
-main()
+int main()
 {
 	clock_t t;
 	int n;
@@ -19,7 +19,9 @@ main()
 		cin>>x;
 		a.push_back(x);
 	}
-	buildmin(0,0,n-1,a);
+	setval(1);
+	build(0,0,n-1,a,comp1);
+
 	int q;
 	cin>>q;
 	while(q--)
@@ -30,13 +32,13 @@ main()
 		int l,r;
 		cin>>l>>r;
 		l--;r--;
-		cout<<querymin(0,l,r,0,n-1)<<"\n";}
+		cout<<query(0,l,r,0,n-1,comp1)<<"\n";}
 		else
 		{
 		int ind,val;
 		cin>>ind>>val;
 		ind--;
-		updatemin(0,0,n-1,ind,val);
+		update(0,0,n-1,ind,val,comp1);
 		}
 		
 
