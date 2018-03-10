@@ -11,6 +11,13 @@ This repository contains 8 files :-
 6. input.txt :- sample test case
 7. segout.txt :- output of test.cpp on input.txt
 8. bruteout.txt :- output of bruteforce.cpp on input.txt
+9. bruteforce.h :- naive solution 
+10. Utest.cpp :- Unit test using boost's library unit_test for comparing bruteforce and segment tree solution.
+
+For Unit Test:
+$ g++ Utest.cpp -o Utest -lboost_unit_test_framework-mt -std=c++14
+$ ./Utest --log_level=test_suite
+
 
 How to use :
 
