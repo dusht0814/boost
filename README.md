@@ -15,7 +15,9 @@ This repository contains 8 files :-
 10. Utest.cpp :- Unit test using boost's library unit_test for comparing bruteforce and segment tree solution.
 
 For Unit Test:
+
 $ g++ Utest.cpp -o Utest -lboost_unit_test_framework-mt -std=c++14
+
 $ ./Utest --log_level=test_suite
 
 
