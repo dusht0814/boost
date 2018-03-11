@@ -10,7 +10,7 @@
 
 BOOST_AUTO_TEST_SUITE(test)
 
-BOOST_AUTO_TEST_CASE(sum)
+BOOST_AUTO_TEST_CASE(summation)
 {
 	fstream fp;
 	fp.open("Input.txt",ios::in);
